@@ -5,7 +5,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from video_processor import VideoProcessor
 from channel_uploader import ChannelUploader
 from utils import get_video_info, format_bytes, format_duration, format_queue_position, ensure_temp_dir
-from config import MAX_FILE_SIZE, SUPPORTED_FORMATS, UPLOAD_CHANNEL_ID, REQUIRE_AUTHENTICATION
+from config import MAX_FILE_SIZE, SUPPORTED_FORMATS, UPLOAD_CHANNEL_ID, REQUIRE_AUTHENTICATION, QUEUE_LIMIT_PER_USER, RESOLUTIONS
 from database import DatabaseManager
 from auth_manager import AuthManager
 from queue_manager import QueueManager
@@ -224,8 +224,8 @@ class MessageHandlers:
 
         # Check queue limit per user
         user_queue_count = await self.db.get_user_queue_count(message.from_user.id)
-        if user_queue_count >= config.QUEUE_LIMIT_PER_USER:
-            await message.reply_text(f"❌ Queue limit reached! You can have max {config.QUEUE_LIMIT_PER_USER} jobs in queue.")
+        if user_queue_count >= QUEUE_LIMIT_PER_USER:
+            await message.reply_text(f"❌ Queue limit reached! You can have max {QUEUE_LIMIT_PER_USER} jobs in queue.")
             return
 
         # Show options for resolution
@@ -289,7 +289,7 @@ class MessageHandlers:
             if target_resolution == "all":
                 # Add separate jobs for each resolution
                 job_ids = []
-                for res_name in config.RESOLUTIONS.keys():
+                for res_name in RESOLUTIONS.keys():
                     job_id = await self.queue.add_job(
                         original_message.from_user.id,
                         file_id,                        original_filename,
