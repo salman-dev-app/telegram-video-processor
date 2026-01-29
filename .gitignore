@@ -1,0 +1,13 @@
+*.pyc
+__pycache__/
+.env
+temp_*
+compressed_*
+*.log
+.DS_Store
+session.session
+session.session-journal
+*.session*
+database.db
+database.db-shm
+database.db-wal
