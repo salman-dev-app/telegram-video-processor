@@ -10,23 +10,19 @@ from handlers import MessageHandlers
 from utils import check_ffmpeg, ensure_temp_dir
 import asyncio
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-
-logger = logging.getLogger(__name__)
+# Check if running on Railway
+IS_RAILWAY = 'RAILWAY' in os.environ
 
 async def main():
     # Check prerequisites
     if not await check_ffmpeg():
-        logger.error("FFmpeg is not installed. Please install FFmpeg first.")
+        print("FFmpeg is not available. Installing...")
+        # On Railway, FFmpeg should be available if Dockerfile is used
         return
 
     # Validate configuration
     if not API_ID or not API_HASH or not BOT_TOKEN or not config.UPLOAD_CHANNEL_ID:
-        logger.error("Missing required environment variables")
+        print("Missing required environment variables")
         return
 
     # Ensure temp directory exists
@@ -66,24 +62,24 @@ async def main():
     ))
     app.add_handler(CallbackQueryHandler(handlers.process_video_selection))
 
-    logger.info("Bot started successfully!")
+    print("Bot started successfully!")
     
     # Start queue processing
     await queue_manager.start_processing()
     
     try:
         await app.start()
-        logger.info("Bot is running...")
+        print("Bot is running on Railway...")
         await app.idle()  # Keep the bot running
     except KeyboardInterrupt:
-        logger.info("Bot stopped by user")
+        print("Bot stopped by user")
     except Exception as e:
-        logger.error(f"Unexpected error: {e}")
+        print(f"Unexpected error: {e}")
     finally:
         # Stop queue processing
         await queue_manager.stop_processing()
         await app.stop()
-        logger.info("Bot stopped")
+        print("Bot stopped")
 
 if __name__ == "__main__":
     asyncio.run(main())
