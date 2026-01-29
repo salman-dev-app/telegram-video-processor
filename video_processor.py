@@ -53,6 +53,7 @@ class VideoProcessor:
                         progress_callback(i)
                         time.sleep(0.1)  # Small delay to allow other operations
             
+            # Start the progress simulation thread
             progress_thread = threading.Thread(target=simulate_progress, daemon=True)
             progress_thread.start()
             
@@ -79,7 +80,8 @@ class VideoProcessor:
             if progress_callback:
                 progress_callback(100.0)
             
-            progress_thread.join(timeout=1)  # Wait max 1 second for thread to finish
+            # Wait for progress thread to finish (with timeout)
+            progress_thread.join(timeout=2)  # Wait max 2 seconds for thread to finish
             
             logger.info(f"Successfully compressed to: {output_path}")
             return True
@@ -94,9 +96,9 @@ class VideoProcessor:
                 stream = ffmpeg.input(input_path)
                 stream = ffmpeg.filter(stream, 'scale', width, height)
                 stream = ffmpeg.output(
-                    stream,
-                    output_path,
-                    vcodec='libx264',                    crf=28,
+                    stream,                    output_path,
+                    vcodec='libx264',
+                    crf=28,
                     preset='ultrafast'
                 ).overwrite_output()
                 
@@ -143,9 +145,9 @@ class VideoProcessor:
                 total_resolutions = len(self.resolutions)
                 for i, (res_name, res_params) in enumerate(self.resolutions.items()):
                     output_path = self.temp_dir / f"compressed_{res_name}_{Path(input_path).stem}.mp4"
-                    
-                    # Calculate progress range for this resolution
-                    progress_start = (i / total_resolutions) * 100                    progress_end = ((i + 1) / total_resolutions) * 100
+                                        # Calculate progress range for this resolution
+                    progress_start = (i / total_resolutions) * 100
+                    progress_end = ((i + 1) / total_resolutions) * 100
                     
                     success = await self.compress_video_with_progress(
                         input_path, str(output_path),
