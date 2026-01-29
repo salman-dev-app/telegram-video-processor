@@ -46,7 +46,7 @@ class VideoProcessor:
                 elif bitrate_num >= 8:
                     crf_value = 18
             
-            # Create a thread to simulate progress (since FFmpeg-python doesn't have built-in progress)
+            # Create a thread to simulate progress
             def simulate_progress():                if progress_callback:
                     # Simulate progress - this is approximate since we can't get exact FFmpeg progress
                     for i in range(0, 101, 2):  # Increment by 2%
