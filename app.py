@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 async def main():
     # Check prerequisites
     if not await check_ffmpeg():
-        logger.error("FFmpeg is not installed. Please install FFmpeg first.")
+        logger.error("FFmpeg is not installed or not in PATH. Please install FFmpeg first.")
         return
 
     # Validate configuration
@@ -66,14 +66,15 @@ async def main():
     ))
     app.add_handler(CallbackQueryHandler(handlers.process_video_selection))
 
-    logger.info("Bot started successfully!")
+    logger.info("Bot started successfully on VPS!")
+    logger.info(f"Supporting files up to {config.MAX_FILE_SIZE / (1024*1024*1024):.1f} GB")
     
     # Start queue processing
     await queue_manager.start_processing()
     
     try:
         await app.start()
-        logger.info("Bot is running...")
+        logger.info("Bot is running on VPS...")
         await app.idle()  # Keep the bot running
     except KeyboardInterrupt:
         logger.info("Bot stopped by user")
