@@ -2,7 +2,7 @@ import os
 import logging
 from pyrogram import Client
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
-from config import API_ID, API_HASH, BOT_TOKEN, SESSION_NAME
+from config import API_ID, API_HASH, BOT_TOKEN, SESSION_NAME, UPLOAD_CHANNEL_ID
 from database import DatabaseManager
 from auth_manager import AuthManager
 from queue_manager import QueueManager
