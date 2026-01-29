@@ -57,7 +57,7 @@ A Telegram bot with queue system, automatic delivery, and user authentication fo
 
 3. **Clone and setup:**
 ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/salman-dev-app/telegram-video-processor
    cd telegram-video-processor
    pip install -r requirements.txt
 ```
