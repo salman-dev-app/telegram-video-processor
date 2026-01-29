@@ -55,7 +55,7 @@ class DatabaseManager:
             await db.commit()
             logger.info("Database initialized successfully")
 
-    async def add_user(self, user_data: Dict):
+    async def add_user(self, user_ Dict):
         """Add or update user information"""
         async with aiosqlite.connect(self.db_path) as db:
             await db.execute('''
