@@ -10,19 +10,23 @@ from handlers import MessageHandlers
 from utils import check_ffmpeg, ensure_temp_dir
 import asyncio
 
-# Check if running on Railway
-IS_RAILWAY = 'RAILWAY' in os.environ
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
+logger = logging.getLogger(__name__)
 
 async def main():
     # Check prerequisites
     if not await check_ffmpeg():
-        print("FFmpeg is not available. Installing...")
-        # On Railway, FFmpeg should be available if Dockerfile is used
+        logger.error("FFmpeg is not installed. Please install FFmpeg first.")
         return
 
     # Validate configuration
-    if not API_ID or not API_HASH or not BOT_TOKEN or not config.UPLOAD_CHANNEL_ID:
-        print("Missing required environment variables")
+    if not API_ID or not API_HASH or not BOT_TOKEN or not UPLOAD_CHANNEL_ID:
+        logger.error("Missing required environment variables")
         return
 
     # Ensure temp directory exists
@@ -43,7 +47,7 @@ async def main():
     # Initialize managers
     auth_manager = AuthManager(db_manager)
     processor = VideoProcessor()
-    uploader = ChannelUploader(app, config.UPLOAD_CHANNEL_ID)
+    uploader = ChannelUploader(app, UPLOAD_CHANNEL_ID)
     queue_manager = QueueManager(db_manager, processor, uploader)
 
     # Initialize handlers
@@ -62,24 +66,24 @@ async def main():
     ))
     app.add_handler(CallbackQueryHandler(handlers.process_video_selection))
 
-    print("Bot started successfully!")
+    logger.info("Bot started successfully!")
     
     # Start queue processing
     await queue_manager.start_processing()
     
     try:
         await app.start()
-        print("Bot is running on Railway...")
+        logger.info("Bot is running...")
         await app.idle()  # Keep the bot running
     except KeyboardInterrupt:
-        print("Bot stopped by user")
+        logger.info("Bot stopped by user")
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}")
     finally:
         # Stop queue processing
         await queue_manager.stop_processing()
         await app.stop()
-        print("Bot stopped")
+        logger.info("Bot stopped")
 
 if __name__ == "__main__":
     asyncio.run(main())
