@@ -1,227 +1,119 @@
-# 🎬 **Telegram Video Processing Bot**
-*A powerful video compression bot with queue system and progress tracking*
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:FF6B6B,100:4ECDC4&height=200&text=telegram-video-processor&fontSize=42&fontColor=fff&animation=fadeIn&fontAlignY=40&desc=Python-based%20video%20handling%20bot&descAlignY=60&descSize=14"/>
+</div>
 
-## ✨ **Features**
+<p align="center">
+  <a href="https://github.com/salman-dev-app/telegram-video-processor">
+    <img src="https://readme-typing-svg.demolab.com?font=Tagesschrift&size=22&duration=2000&pause=800&color=F7F7F7&background=FF001400&center=true&vCenter=true&multiline=true&width=500&height=70&lines=telegram-video-processor;Python-based+video+handling+bot" alt="Typing SVG" />
+  </a>
+</p>
 
-### **Core Features:**
-- **Multi-resolution Compression**: 1080p, 720p, 480p, 360p
-- **Large File Support**: Process videos up to 2GB
-- **Queue System**: Multiple jobs processed in order
-- **Real-time Progress**: Live 0% → 100% updates
-- **Channel Integration**: Stores processed videos in private channel
-- **Automatic Delivery**: Sends processed videos when complete
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/github/last-commit/salman-dev-app/telegram-video-processor?style=for-the-badge&color=00D9FF&label=LAST%20UPDATED&logo=github&logoColor=white" />
+  <img src="https://img.shields.io/github/stars/salman-dev-app/telegram-video-processor?style=for-the-badge&color=FF6B6B&logo=github&logoColor=white" />
+</p>
 
-### **Advanced Features:**
-- **User Authentication**: Control who can use the bot
-- **Admin Controls**: Manage authorized users
-- **Database Storage**: SQLite for persistent job tracking
-- **Memory Efficient**: Optimized for VPS environments
-- **Error Recovery**: Automatic retry and cleanup
+<p align="center">
+  <a href="https://github.com/salman-dev-app/telegram-video-processor">
+    <img src="https://img.shields.io/badge/GitHub-View_Repository-FF6B6B?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
 
-## 🚀 **Prerequisites**
-
-### **System Requirements:**
-- **Operating System**: Windows 10/11, Windows Server 2019/2022
-- **RAM**: Minimum 4GB (8GB recommended for 2GB files)
-- **Storage**: 50GB free space (for temp files)
-- **Internet**: Stable broadband connection
-- **Python**: 3.8 or higher
-
-### **Software Requirements:**
-- **Python 3.8+** (with "Add to PATH" enabled)
-- **Git for Windows** (for cloning repository)
-- **FFmpeg** (for video processing)
-
-## 📋 **Installation Guide**
-
-### **Step 1: Install Required Software**
-1. **Install Python 3.9+**
-   - Download from [python.org](https://python.org)
-   - Check "Add Python to PATH" during installation
-
-2. **Install Git**
-   - Download from [git-scm.com](https://git-scm.com)
-   - Use default settings during installation
-
-3. **Install FFmpeg**
-   - Download from [ffmpeg.org](https://ffmpeg.org/download.html)
-   - Extract and add to system PATH
-
-### **Step 2: Clone Repository**
-```cmd
-cd C:\Users\Administrator\Desktop
-git clone https://github.com/salman-dev-app/telegram-video-processor.git
-cd telegram-video-processor
-```
-
-### **Step 3: Install Dependencies**
-```cmd
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-### **Step 4: Get Telegram Credentials**
-1. **Get API ID and Hash**
-   - Visit [my.telegram.org](https://my.telegram.org)
-   - Login with your phone number
-   - Click "API Development Tools"
-   - Create new application and save credentials
-
-2. **Create Bot Token**
-   - Message [@BotFather](https://t.me/BotFather) on Telegram
-   - Use `/newbot` command
-   - Follow instructions to create bot
-   - Save the bot token
-
-3. **Create Private Channel**
-   - Create a new private channel on Telegram
-   - Add your bot as administrator
-   - Get the channel ID (use @userinfobot to find it)
-
-### **Step 5: Configure Environment**
-Create `.env` file with your credentials:
-```
-API_ID=your_api_id_here
-API_HASH=your_api_hash_here
-BOT_TOKEN=your_bot_token_here
-UPLOAD_CHANNEL_ID=your_private_channel_id_here
-AUTHORIZED_USERS=comma,separated,user,ids
-ADMIN_USERS=your_user_id
-REQUIRE_AUTHENTICATION=true
-MAX_FILE_SIZE=2147483648
-MAX_CONCURRENT_PROCESSES=2
-QUEUE_LIMIT_PER_USER=5
-```
-
-## ⚙️ **Configuration Options**
-
-### **Environment Variables:**
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `API_ID` | Your Telegram API ID | Required |
-| `API_HASH` | Your Telegram API Hash | Required |
-| `BOT_TOKEN` | Your Bot Token from @BotFather | Required |
-| `UPLOAD_CHANNEL_ID` | Private channel ID for storage | Required |
-| `AUTHORIZED_USERS` | Comma-separated user IDs | Empty (open access) |
-| `ADMIN_USERS` | Admin user IDs | Empty |
-| `REQUIRE_AUTHENTICATION` | Require user authorization | false |
-| `MAX_FILE_SIZE` | Maximum file size in bytes | 2147483648 (2GB) |
-| `MAX_CONCURRENT_PROCESSES` | Number of simultaneous processes | 2 |
-| `QUEUE_LIMIT_PER_USER` | Max jobs per user | 5 |
-
-### **Resolution Settings:**
-- **1080p**: 1920x1080, 8M bitrate (highest quality)
-- **720p**: 1280x720, 5M bitrate (good balance)
-- **480p**: 854x480, 3M bitrate (smaller file)
-- **360p**: 640x360, 1.5M bitrate (smallest file)
-
-## 🚀 **Running the Bot**
-
-### **Method 1: Direct Run**
-```cmd
-python app.py
-```
-
-### **Method 2: Using Batch File**
-Double-click `start_bot.bat`
-
-### **Method 3: As Windows Service** (Advanced)
-```cmd
-# Install as service (requires additional setup)
-python install_service.py
-```
-
-## 🤖 **Bot Commands**
-
-| Command | Description |
-|---------|-------------|
-| `/start` | Show welcome message and features |
-| `/help` | Display help information |
-| `/info` | Get video information (reply to video) |
-| `/queue` | Check your position in queue |
-| `/jobs` | View your recent jobs |
-| `/progress` | Check current job progress |
-
-## 📊 **Usage Statistics**
-
-### **Performance Metrics:**
-- **Processing Speed**: 2-5x faster than real-time
-- **Memory Usage**: 200-800MB depending on file size
-- **CPU Usage**: 20-80% during processing
-- **Storage**: Temp files cleared automatically
-
-### **Supported Formats:**
-- MP4, AVI, MOV, MKV, WMV, FLV, WEBM, M4V, 3GP
-
-## 🔧 **Troubleshooting**
-
-### **Common Issues:**
-
-**Q: ModuleNotFoundError: No module named 'pyrogram'**
-A: Run `pip install -r requirements.txt`
-
-**Q: FFmpeg not found**
-A: Install FFmpeg and add to system PATH
-
-**Q: Bot not responding**
-A: Check internet connection and API credentials
-
-**Q: Large files failing**
-A: Verify available disk space and MAX_FILE_SIZE setting
-
-**Q: Processing stuck**
-A: Restart the bot and check temp directory
-
-### **Log Files:**
-- Check `bot.log` for detailed error information
-- Review recent entries for troubleshooting
-
-## 🔒 **Security Features**
-
-### **User Management:**
-- Optional authentication system
-- Authorized user lists
-- Admin controls
-- Queue limits per user
-
-### **Data Protection:**
-- Temporary files auto-deleted
-- No sensitive data stored
-- Secure API credential handling
-
-## 🛠️ **Maintenance**
-
-### **Regular Tasks:**
-- Monitor disk space (clean temp directory)
-- Check bot logs for errors
-- Update dependencies regularly
-- Backup database if needed
-
-### **Backup Strategy:**
-- Database: `database.db` file
-- Configuration: `.env` file
-- Logs: Regular cleanup recommended
-
-## 🆘 **Support**
-
-### **Getting Help:**
-- Check logs for error details
-- Verify all configuration settings
-- Ensure all dependencies are installed
-- Contact via GitHub issues
-
-### **Contributing:**
-- Fork the repository
-- Create feature branch
-- Submit pull request
-- Follow coding standards
-
-## 📄 **License**
-
-MIT License - See LICENSE file for details.
+</p>
 
 ---
 
-**Made with ❤️ for the Telegram community**
+<div align="center">
+  <h3>
+    <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Glowing%20Star.png" alt="Star" width="25" height="25" style="vertical-align: middle;" /> 
+    Telegram Video Processor — Python-based video handling bot
+  </h3>
+</div>
 
-*Last updated: January 2026*
+---
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Clipboard.png" alt="Clipboard" width="30" height="30" style="vertical-align: middle;" /> About This Project
+
+<p>
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Check%20Mark%20Button.png" width="18" height="18" style="vertical-align: middle;" /> <strong>Repository:</strong> <a href="https://github.com/salman-dev-app/telegram-video-processor">telegram-video-processor</a><br/>
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Check%20Mark%20Button.png" width="18" height="18" style="vertical-align: middle;" /> <strong>Author:</strong> <a href="https://github.com/salman-dev-app">Md Salman Biswas</a><br/>
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Check%20Mark%20Button.png" width="18" height="18" style="vertical-align: middle;" /> <strong>Primary Language:</strong> Python<br/>
+
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Check%20Mark%20Button.png" width="18" height="18" style="vertical-align: middle;" /> <strong>License:</strong> MIT
+</p>
+
+---
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" alt="Rocket" width="30" height="30" style="vertical-align: middle;" /> Features
+
+<p><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Check%20Mark%20Button.png" width="18" height="18" style="vertical-align: middle;" /> <strong>Clean Architecture</strong> — Built following SOLID principles and DRY methodology</p>
+<p><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Check%20Mark%20Button.png" width="18" height="18" style="vertical-align: middle;" /> <strong>Scalable Design</strong> — Engineered for performance and extensibility</p>
+<p><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Check%20Mark%20Button.png" width="18" height="18" style="vertical-align: middle;" /> <strong>Developer Friendly</strong> — Well-structured codebase with clear documentation</p>
+<p><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Check%20Mark%20Button.png" width="18" height="18" style="vertical-align: middle;" /> <strong>Production Ready</strong> — Battle-tested and deployed in real environments</p>
+
+---
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Wrench.png" alt="Wrench" width="30" height="30" style="vertical-align: middle;" /> Tech Stack
+
+<div align="center">
+  <img src="https://skillicons.dev/icons?i=git,github,docker,vscode&theme=dark" />
+</div>
+
+---
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Scroll.png" alt="Scroll" width="30" height="30" style="vertical-align: middle;" /> Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/salman-dev-app/telegram-video-processor.git
+
+# Navigate to the project
+cd telegram-video-processor
+
+# Install dependencies (if applicable)
+# Follow language-specific setup instructions below
+```
+
+---
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Globe%20Showing%20Americas.png" alt="Globe" width="30" height="30" style="vertical-align: middle;" /> Connect With The Author
+
+<p align="center">
+  <a href="mailto:mdsalmanhelp@gmail.com">
+    <img src="https://img.shields.io/badge/Hire_Me-Send_Email-FF6B6B?style=for-the-badge&logo=minutemailer&logoColor=white" />
+  </a>
+  <a href="https://wa.me/8801840933137">
+    <img src="https://img.shields.io/badge/WhatsApp-Direct_Chat-4ECDC4?style=for-the-badge&logo=whatsapp&logoColor=white" />
+  </a>
+  <a href="https://github.com/salman-dev-app">
+    <img src="https://img.shields.io/badge/GitHub-Follow_Me-00D9FF?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+</p>
+
+---
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Scroll.png" alt="License" width="30" height="30" style="vertical-align: middle;" /> License
+
+<div align="center">
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logo=open-source-initiative&logoColor=white" />
+  </a>
+</div>
+
+<p align="center">
+  This project is licensed under the MIT License — feel free to use and contribute.
+</p>
+
+---
+
+<footer align="center">
+  <p>© 2024-2026 <a href="https://github.com/salman-dev-app">Md Salman Biswas</a> · All rights reserved</p>
+  <p>
+    <a href="https://github.com/salman-dev-app">
+      <img src="https://img.shields.io/badge/Profile_Status-Active-4ECDC4?style=flat" alt="Status" />
+    </a>
+  </p>
+  <p>Engineered with ❤️ by <a href="https://github.com/salman-dev-app">Md Salman Biswas</a></p>
+</footer>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:FF6B6B,100:4ECDC4&height=120&section=footer"/>
